@@ -23,11 +23,26 @@ app.controller("indexController", [
           socket.emit("newUser", { username });
           socket.on('newUser',(data)=>{
               const messageData={
-                  type:0,//info
+                  type:{
+                      code:0,
+                      message:1
+                  },//info
                   username:data.username
               };
               $scope.messages.push(messageData);
 
+              $scope.$apply();
+          });
+          socket.on('disUser',(data)=>{
+            const messageData={
+                type:{
+                    code:0,
+                    message:0
+                },//info
+                username:data.username
+            };
+              console.log(data);
+              $scope.messages.push(messageData);
               $scope.$apply();
           })
         })
