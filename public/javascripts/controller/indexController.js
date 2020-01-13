@@ -38,7 +38,7 @@ app.controller("indexController", [
                   username:data.username
               };
               $scope.messages.push(messageData);
-
+              $scope.players[data.id]=data;
               $scope.$apply();
           });
           socket.on('disUser',(data)=>{
@@ -51,8 +51,14 @@ app.controller("indexController", [
             };
               console.log(data);
               $scope.messages.push(messageData);
+              delete $scope.players[data.id];
               $scope.$apply();
           })
+          $scope.onClickPlayer=($event)=>{
+              
+
+              $('#'+socket.id).animate({'left':$event.offsetX,'top':$event.offsetY});
+          }
         })
         .catch(err => {
           console.log(err);
